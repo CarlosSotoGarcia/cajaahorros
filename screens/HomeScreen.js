@@ -20,7 +20,6 @@ export default class HomeScreen extends Component {
         this._loadClient = this._loadClient.bind(this);
     }
 
-
     componentDidMount() {
         this._loadClient();
     }

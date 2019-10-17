@@ -55,9 +55,10 @@ export default class DetalleScreen extends Component {
                         duration={2000}
                         ref={node => (this._confettiView = node)}
                     />
-                    <Text style={styles.sectionContentText}> RFC: {item.nombre} </Text>
-                    <Text style={styles.sectionContentText}> Texto: {item.nombre} </Text>
+                    <Text style={styles.sectionContentText}> RFC: {item.rfc} </Text>
+                    <Text style={styles.sectionContentText}> Nombre: {item.nombre} </Text>
                     <Text style={styles.sectionContentText}> Monto: {item.monto} </Text>
+
                     <TextInput keyboardType={'numeric'}
                                placeholder="Abono"
                                style={styles.abono}

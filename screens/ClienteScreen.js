@@ -34,6 +34,7 @@ export default class ClienteScreen extends Component {
             RemoteMongoClient.factory,
             "mongodb-atlas"
         );
+
         const db = mongoClient.db("cajaahorros");
         const clientes = db.collection("clientes");
         if (this.state.rfc != "") {
@@ -71,7 +72,7 @@ export default class ClienteScreen extends Component {
                     />
                     <TextInput
                         style={{
-                            color: "lightgray",
+                            color: "black",
                             fontSize: 20,
                             marginTop: 0
                         }}
@@ -82,7 +83,7 @@ export default class ClienteScreen extends Component {
                     />
                     <TextInput
                         style={{
-                            color: "lightgray",
+                            color: "black",
                             fontSize: 20,
                             marginTop: 20
                         }}
@@ -93,12 +94,12 @@ export default class ClienteScreen extends Component {
                     />
                     <TextInput
                         style={{
-                            color: "lightgray",
+                            color: "black",
                             fontSize: 20,
                             marginTop: 40
                         }}
                         keyboardType={'numeric'}
-                        placeholder="Monto"
+                        placeholder="Monto Inicial"
                         onChangeText={monto => this.setState({ monto })}
                         value={this.state.monto}
                         onSubmitEditing={() => this.handleSubmit()}
