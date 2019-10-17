@@ -18,6 +18,7 @@ import moment, {parseTwoDigitYear} from "moment";
 
 export default class DetalleScreen extends Component {
     constructor(props) {
+        console.log("DetalleScreen");
         super(props);
         this.state = {
             value: false,
@@ -26,12 +27,14 @@ export default class DetalleScreen extends Component {
             abonos: [],
             refreshing: false,
         }
+        this._loadClient = this._loadClient.bind(this);
     }
     render() {
         const { navigation  } = this.props;
         const { goBack } = this.props.navigation;
         const item = this.state.cliente == undefined ?
             "" : this.state.cliente;
+
         const sections =
             this.state.abonos == undefined
                 ? [{ data: [{ title: "Loading..." }], title: "Loading..." }]
@@ -45,7 +48,7 @@ export default class DetalleScreen extends Component {
                 ];
         return (
             <View style={styles.container}>
-                <View style={styles.container}>
+                <View style={styles.containerFormulario}>
                     <Confetti
                         confettiCount={50}
                         timeout={10}
@@ -70,7 +73,7 @@ export default class DetalleScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <SectionList
-                    style={{ ...styles.container }}
+                    style={{ ...styles.containerSelection }}
                     renderItem={this._renderItem}
                     renderSectionHeader={this._renderSectionHeader}
                     stickySectionHeadersEnabled={true}
@@ -143,12 +146,19 @@ export default class DetalleScreen extends Component {
                 this.setState({ abono: undefined });
             }).catch(err => {
                 console.warn(err);
+            });
+            pagosCollection.find({rfc: '123'}).asArray().then(docs => {
+                this.setState({abonos: docs});
+                this.state.abonos = docs;
+                console.log("Se cargaron los datoss " + docs.length)
+            }).catch(err => {
+                console.warn(err);
             })
         };
         const clienteCollection = db.collection("clientes");
         clienteCollection.updateOne(
             {_id: this.state.cliente._id},
-            {$set: {monto: this.state.cliente.monto - this.state.abono}},
+            {$set: {monto: parseInt(this.state.cliente.monto) + parseInt(this.state.abono)}},
             {upsert: true}
         ).then(() => {
             clienteCollection.findOne({rfc: this.state.cliente.rfc}).then(doc => {
@@ -211,7 +221,15 @@ const SectionHeader = ({ title }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 3,
+        backgroundColor: "#fff",
+    },
+    containerFormulario: {
         flex: 1,
+        backgroundColor: "#fff",
+    },
+    containerSelection: {
+        flex: 2,
         backgroundColor: "#fff",
     },
     sectionContentText: {
