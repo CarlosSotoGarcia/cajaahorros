@@ -27,7 +27,13 @@ export default class DetalleScreen extends Component {
             abonos: [],
             refreshing: false,
         }
+
         this._loadClient = this._loadClient.bind(this);
+        console.log(props);
+        console.log(props.navigation.actions.navigate);
+    }
+    recuperar = () => {
+
     }
     render() {
         const { navigation  } = this.props;

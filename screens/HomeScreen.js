@@ -25,6 +25,7 @@ export default class HomeScreen extends Component {
     }
 
     render() {
+        const { navigation  } = this.props;
         const sections =
             this.state.clientes == undefined
                 ? [{ data: [{ title: "Loading..." }], title: "Loading..." }]
@@ -88,7 +89,7 @@ export default class HomeScreen extends Component {
                                 </View>
                             ),
                             backgroundColor: "green",
-                            onPress: () => this.props.navigation.navigate('Detalle')
+                            onPress: () => this.props.navigation.navigate('Detalle', {idcliente: item._id})
                         }
                     ]}
                 >

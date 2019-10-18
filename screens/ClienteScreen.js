@@ -60,7 +60,6 @@ export default class ClienteScreen extends Component {
                 });
         }
     };
-
     render() {
         return (
                 <View style={styles.container}>
